@@ -1,0 +1,25 @@
+{
+    "name": "storefront-x/magento-module-product-alerts-graphql",
+    "description": "Magento 2 module - Product Alerts GraphQl module for Magento Magento Alert module",
+    "type": "magento2-module",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=7.4",
+        "magento/framework": "^103.0.2",
+	    "magento/module-graph-ql": "^100.4.2",
+	    "magento/module-product-alert": "^100.4.1"
+    },
+    "license": [
+        "MIT"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "StorefrontX\\ProductAlertsGraphQl\\": ""
+        }
+    }
+}
