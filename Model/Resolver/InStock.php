@@ -14,6 +14,7 @@ use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\ProductAlert\Model\Stock;
 use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use StorefrontX\ProductAlertsGraphQl\Model\Customer;
 
 class InStock implements ResolverInterface
@@ -50,6 +51,10 @@ class InStock implements ResolverInterface
         array $value = null,
         array $args = null
     ) {
+        if (empty($args["product_id"])) {
+            throw new GraphQlInputException(__('You must specify an product id.'));
+        }
+
         /* @var $product \Magento\Catalog\Model\Product */
         $product = $this->productRepository->getById($args["product_id"]);
 
@@ -64,8 +69,9 @@ class InStock implements ResolverInterface
 
         return [
             "website_id" => $model->getWebsiteId(),
-            "product_id" => $args["product_id"],
+            "product_id" => $model->getProductId(),
             "customer_id" => $model->getCustomerId(),
+            "customer_email" => $customer->getEmail(),
             "store_id" => $model->getStoreId()
         ];
     }
